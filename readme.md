@@ -1,4 +1,4 @@
-# read-chunk [![Build Status](https://travis-ci.org/sindresorhus/read-chunk.png?branch=master)](http://travis-ci.org/sindresorhus/read-chunk)
+# read-chunk [![Build Status](https://travis-ci.org/sindresorhus/read-chunk.svg?branch=master)](https://travis-ci.org/sindresorhus/read-chunk)
 
 > Read a chunk from a file
 
@@ -7,14 +7,12 @@ Because the built-in way is too much boilerplate.
 
 ## Install
 
-Install with [npm](https://npmjs.org/package/read-chunk)
-
-```
-npm install --save read-chunk
+```bash
+$ npm install --save read-chunk
 ```
 
 
-## Example
+## Usage
 
 ```js
 var readChunk = require('read-chunk');
@@ -60,4 +58,4 @@ Returns a buffer.
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
