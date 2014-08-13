@@ -1,6 +1,6 @@
 {
   "name": "read-chunk",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Read a chunk from a file",
   "license": "MIT",
   "repository": "sindresorhus/read-chunk",
