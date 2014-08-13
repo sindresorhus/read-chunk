@@ -7,7 +7,7 @@ Because the built-in way is too much boilerplate.
 
 ## Install
 
-```bash
+```sh
 $ npm install --save read-chunk
 ```
 
@@ -30,23 +30,23 @@ readChunk.sync('foo.txt', 1, 3);
 
 #### filepath
 
-Type: `String`
+Type: `string`
 
 #### position
 
-Type: `Number`
+Type: `number`
 
 Position to start reading.
 
 #### length
 
-Type: `Number`
+Type: `number`
 
 Number of bytes to read.
 
 #### callback(error, buffer)
 
-Type: `Function`
+Type: `function`
 
 
 ### readChunk.sync(filepath, start, length)
@@ -58,4 +58,4 @@ Returns a buffer.
 
 ## License
 
-[MIT](http://opensource.org/licenses/MIT) © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](http://sindresorhus.com)

@@ -23,7 +23,7 @@ module.exports = function (filepath, pos, len, cb) {
 			});
 		});
 	});
-}
+};
 
 module.exports.sync = function (filepath, pos, len) {
 	var buf = new Buffer(len);
@@ -31,4 +31,4 @@ module.exports.sync = function (filepath, pos, len) {
 	fs.readSync(fd, buf, 0, len, pos);
 	fs.closeSync(fd);
 	return buf;
-}
+};

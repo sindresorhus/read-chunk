@@ -1,7 +1,6 @@
 'use strict';
-var fs = require('fs');
 var assert = require('assert');
-var readChunk = require('./index');
+var readChunk = require('./');
 
 describe('readChunk()', function () {
 	it('should read chunks from a file', function (cb) {
