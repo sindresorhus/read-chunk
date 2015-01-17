@@ -7,7 +7,7 @@ Because the built-in way is too much boilerplate.
 
 ## Install
 
-```sh
+```
 $ npm install --save read-chunk
 ```
 
