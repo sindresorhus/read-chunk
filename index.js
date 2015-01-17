@@ -19,6 +19,10 @@ module.exports = function (filepath, pos, len, cb) {
 					return cb(err);
 				}
 
+				if (bytesRead < len) {
+					buf = buf.slice(0, bytesRead);
+				}
+
 				cb(null, buf);
 			});
 		});
@@ -28,7 +32,12 @@ module.exports = function (filepath, pos, len, cb) {
 module.exports.sync = function (filepath, pos, len) {
 	var buf = new Buffer(len);
 	var fd = fs.openSync(filepath, 'r');
-	fs.readSync(fd, buf, 0, len, pos);
+	var bytesRead = fs.readSync(fd, buf, 0, len, pos);
 	fs.closeSync(fd);
+
+	if (bytesRead < len) {
+		buf = buf.slice(0, bytesRead);
+	}
+
 	return buf;
 };
