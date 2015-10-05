@@ -15,12 +15,12 @@ $ npm install --save read-chunk
 ## Usage
 
 ```js
-var readChunk = require('read-chunk');
+const readChunk = require('read-chunk');
 
 // foo.txt => hello
 
 readChunk.sync('foo.txt', 1, 3);
-//=> ell
+//=> 'ell'
 ```
 
 
