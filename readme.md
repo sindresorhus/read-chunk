@@ -46,10 +46,9 @@ Type: `number`
 
 Number of bytes to read.
 
-
 ### readChunk.sync(filepath, start, length)
 
-Same arguments as `readChunk` except the callback.
+Same arguments as `readChunk`.
 
 Returns a buffer.
 
