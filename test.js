@@ -3,17 +3,15 @@ var assert = require('assert');
 var readChunk = require('./');
 
 describe('readChunk()', function () {
-	it('should read chunks from a file', function (cb) {
-		readChunk('fixture', 1, 4, function (err, buf) {
+	it('should read chunks from a file', function () {
+		return readChunk('fixture', 1, 4).then(function (buf) {
 			assert.equal(buf.toString(), 'ello');
-			cb();
 		});
 	});
 
-	it('should slice buffer if read bytes count is less than requested length', function (cb) {
-		readChunk('fixture', 0, 15, function (err, buf) {
+	it('should slice buffer if read bytes count is less than requested length', function () {
+		return readChunk('fixture', 0, 15).then(function (buf) {
 			assert.equal(buf.toString(), 'hello\n');
-			cb();
 		});
 	});
 });

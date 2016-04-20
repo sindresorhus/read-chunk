@@ -26,7 +26,9 @@ readChunk.sync('foo.txt', 1, 3);
 
 ## API
 
-### readChunk(filepath, position, length, callback)
+### readChunk(filepath, position, length)
+
+Returns a promise for a buffer.
 
 #### filepath
 
@@ -44,10 +46,6 @@ Type: `number`
 
 Number of bytes to read.
 
-#### callback(error, buffer)
-
-Type: `function`
-
 
 ### readChunk.sync(filepath, start, length)
 
@@ -58,4 +56,4 @@ Returns a buffer.
 
 ## License
 
-MIT © [Sindre Sorhus](http://sindresorhus.com)
+MIT © [Sindre Sorhus](https://sindresorhus.com)
