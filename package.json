@@ -13,7 +13,7 @@
     "node": ">=4"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "xo && ava"
   },
   "files": [
     "index.js"
@@ -36,6 +36,10 @@
     "pify": "^2.3.0"
   },
   "devDependencies": {
-    "mocha": "*"
+    "ava": "*",
+    "xo": "*"
+  },
+  "xo": {
+    "esnext": true
   }
 }
