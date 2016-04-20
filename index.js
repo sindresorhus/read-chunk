@@ -1,41 +1,35 @@
 'use strict';
-var fs = require('fs');
+const fs = require('fs');
+const pify = require('pify');
 
-module.exports = function (filepath, pos, len, cb) {
-	var buf = new Buffer(len);
+module.exports = (filepath, pos, len) => {
+	const buf = new Buffer(len);
 
-	fs.open(filepath, 'r', function (err, fd) {
-		if (err) {
-			cb(err);
-			return;
-		}
+	let fd;
 
-		fs.read(fd, buf, 0, len, pos, function (err, bytesRead, buf) {
-			if (err) {
-				cb(err);
-				return;
+	return pify(fs.open)(filepath, 'r')
+		.then(res => {
+			fd = res;
+		})
+		.then(() => pify(fs.read, {multiArgs: true})(fd, buf, 0, len, pos))
+		.then(res => pify(fs.close)(fd).then(() => res))
+		.then(res => {
+			const bytesRead = res[0];
+			let buf = res[1];
+
+			if (bytesRead < len) {
+				buf = buf.slice(0, bytesRead);
 			}
 
-			fs.close(fd, function (err) {
-				if (err) {
-					cb(err);
-					return;
-				}
-
-				if (bytesRead < len) {
-					buf = buf.slice(0, bytesRead);
-				}
-
-				cb(null, buf);
-			});
+			return buf;
 		});
-	});
 };
 
-module.exports.sync = function (filepath, pos, len) {
-	var buf = new Buffer(len);
-	var fd = fs.openSync(filepath, 'r');
-	var bytesRead = fs.readSync(fd, buf, 0, len, pos);
+module.exports.sync = (filepath, pos, len) => {
+	let buf = new Buffer(len);
+
+	const fd = fs.openSync(filepath, 'r');
+	const bytesRead = fs.readSync(fd, buf, 0, len, pos);
 
 	fs.closeSync(fd);
 

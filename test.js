@@ -1,29 +1,18 @@
-'use strict';
-var assert = require('assert');
-var readChunk = require('./');
+import test from 'ava';
+import m from './';
 
-describe('readChunk()', function () {
-	it('should read chunks from a file', function (cb) {
-		readChunk('fixture', 1, 4, function (err, buf) {
-			assert.equal(buf.toString(), 'ello');
-			cb();
-		});
-	});
-
-	it('should slice buffer if read bytes count is less than requested length', function (cb) {
-		readChunk('fixture', 0, 15, function (err, buf) {
-			assert.equal(buf.toString(), 'hello\n');
-			cb();
-		});
-	});
+test('read chunks from a file', async t => {
+	t.is((await m('fixture', 1, 4)).toString(), 'ello');
 });
 
-describe('readChunk.sync()', function () {
-	it('should read chunks from a file', function () {
-		assert.equal(readChunk.sync('fixture', 1, 4).toString(), 'ello');
-	});
+test('slice buffer if read bytes count is less than requested length', async t => {
+	t.is((await m('fixture', 0, 15)).toString(), 'hello\n');
+});
 
-	it('should slice buffer if read bytes count is less than requested length', function () {
-		assert.equal(readChunk.sync('fixture', 0, 15).toString(), 'hello\n');
-	});
+test('synchronously read chunks from a file', t => {
+	t.is(m.sync('fixture', 1, 4).toString(), 'ello');
+});
+
+test('synchronously slice buffer if read bytes count is less than requested length', t => {
+	t.is(m.sync('fixture', 0, 15).toString(), 'hello\n');
 });
