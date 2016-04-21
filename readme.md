@@ -30,6 +30,10 @@ readChunk.sync('foo.txt', 1, 3);
 
 Returns a promise for a buffer.
 
+### readChunk.sync(filepath, position, length)
+
+Returns a buffer.
+
 #### filepath
 
 Type: `string`
@@ -45,12 +49,6 @@ Position to start reading.
 Type: `number`
 
 Number of bytes to read.
-
-### readChunk.sync(filepath, start, length)
-
-Same arguments as `readChunk`.
-
-Returns a buffer.
 
 
 ## License
