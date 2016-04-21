@@ -1,21 +1,22 @@
 'use strict';
 const fs = require('fs');
 const pify = require('pify');
+const fsP = pify(fs);
+const fsReadP = pify(fs.read, {multiArgs: true});
 
 module.exports = (filepath, pos, len) => {
 	const buf = new Buffer(len);
 
-	let fd;
-
-	return pify(fs.open)(filepath, 'r')
-		.then(res => {
-			fd = res;
-		})
-		.then(() => pify(fs.read, {multiArgs: true})(fd, buf, 0, len, pos))
-		.then(res => pify(fs.close)(fd).then(() => res))
-		.then(res => {
-			const bytesRead = res[0];
-			let buf = res[1];
+	return fsP.open(filepath, 'r')
+		.then(fd =>
+			fsReadP(fd, buf, 0, len, pos)
+				.then(readArgs => fsP.close(fd)
+					.then(() => readArgs))
+		)
+		.then(readArgs => {
+			// TODO: use destructuring when Node.js 6 is target
+			const bytesRead = readArgs[0];
+			let buf = readArgs[1];
 
 			if (bytesRead < len) {
 				buf = buf.slice(0, bytesRead);
