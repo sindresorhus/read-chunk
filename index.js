@@ -14,9 +14,14 @@ module.exports = (filepath, pos, len) => {
 					.then(() => readArgs))
 		)
 		.then(readArgs => {
-			// TODO: use destructuring when Node.js 6 is target
-			const bytesRead = readArgs[0];
-			let buf = readArgs[1];
+			let bytesRead;
+			let buf;
+			if (Number(process.versions.node.split('.')) >= 6) {
+				[bytesRead, buf] = readArgs;
+			} else {
+				bytesRead = readArgs[0];
+				buf = readArgs[1];
+			}
 
 			if (bytesRead < len) {
 				buf = buf.slice(0, bytesRead);
