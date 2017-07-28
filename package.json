@@ -40,6 +40,9 @@
     "xo": "*"
   },
   "xo": {
-    "esnext": true
+    "esnext": true,
+    "rules": {
+      "unicorn/no-new-buffer": "warn"
+    }
   }
 }
