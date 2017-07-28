@@ -5,17 +5,8 @@ const pify = require('pify');
 const fsP = pify(fs);
 const fsReadP = pify(fs.read, {multiArgs: true});
 
-function createBuffer(len) {
-	if (Buffer.alloc) {
-		return Buffer.alloc(len);
-	}
-
-	// TODO: remove when when Node.js 6 is target (needed for Node.js < 5.10.0)
-	return new Buffer(len);
-}
-
 module.exports = (filepath, pos, len) => {
-	const buf = createBuffer(len);
+	const buf = Buffer.alloc(len);
 
 	return fsP.open(filepath, 'r')
 		.then(fd =>
@@ -37,7 +28,7 @@ module.exports = (filepath, pos, len) => {
 };
 
 module.exports.sync = (filepath, pos, len) => {
-	let buf = createBuffer(len);
+	let buf = Buffer.alloc(len);
 
 	const fd = fs.openSync(filepath, 'r');
 	const bytesRead = fs.readSync(fd, buf, 0, len, pos);
