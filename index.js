@@ -1,11 +1,12 @@
 'use strict';
 const fs = require('fs');
 const pify = require('pify');
+
 const fsP = pify(fs);
 const fsReadP = pify(fs.read, {multiArgs: true});
 
 module.exports = (filepath, pos, len) => {
-	const buf = new Buffer(len);
+	const buf = Buffer.alloc(len);
 
 	return fsP.open(filepath, 'r')
 		.then(fd =>
@@ -27,7 +28,7 @@ module.exports = (filepath, pos, len) => {
 };
 
 module.exports.sync = (filepath, pos, len) => {
-	let buf = new Buffer(len);
+	let buf = Buffer.alloc(len);
 
 	const fd = fs.openSync(filepath, 'r');
 	const bytesRead = fs.readSync(fd, buf, 0, len, pos);
