@@ -1,5 +1,5 @@
 import test from 'ava';
-import m from './';
+import m from '.';
 
 test('read chunks from a file', async t => {
 	t.is((await m('fixture', 1, 4)).toString(), 'ello');

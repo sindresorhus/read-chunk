@@ -2,13 +2,13 @@
 
 > Read a chunk from a file
 
-Because the built-in way is too much boilerplate.
+Because the built-in way requires way too much boilerplate.
 
 
 ## Install
 
 ```
-$ npm install --save read-chunk
+$ npm install read-chunk
 ```
 
 
@@ -28,11 +28,11 @@ readChunk.sync('foo.txt', 1, 3);
 
 ### readChunk(filepath, position, length)
 
-Returns a promise for a buffer.
+Returns a `Promise<Buffer>`.
 
 ### readChunk.sync(filepath, position, length)
 
-Returns a buffer.
+Returns a `Buffer`.
 
 #### filepath
 
