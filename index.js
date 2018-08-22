@@ -15,11 +15,7 @@ module.exports = (filepath, pos, len) => {
 				.then(readArgs => fsP.close(fd)
 					.then(() => readArgs))
 		)
-		.then(readArgs => {
-			// TODO: Use destructuring when Node.js 6 is target
-			const bytesRead = readArgs[0];
-			let buf = readArgs[1];
-
+		.then(([bytesRead, buf]) => {
 			if (bytesRead < len) {
 				buf = buf.slice(0, bytesRead);
 			}
