@@ -1,7 +1,6 @@
 'use strict';
 const fs = require('fs');
 const pify = require('pify');
-const Buffer = require('safe-buffer').Buffer;
 
 const fsP = pify(fs);
 const fsReadP = pify(fs.read, {multiArgs: true});

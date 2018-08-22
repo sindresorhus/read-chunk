@@ -33,8 +33,7 @@
     "open"
   ],
   "dependencies": {
-    "pify": "^3.0.0",
-    "safe-buffer": "^5.1.1"
+    "pify": "^3.0.0"
   },
   "devDependencies": {
     "ava": "*",
