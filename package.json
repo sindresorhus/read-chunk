@@ -33,7 +33,8 @@
     "open"
   ],
   "dependencies": {
-    "pify": "^3.0.0"
+    "pify": "^3.0.0",
+    "with-open-file": "^0.1.3"
   },
   "devDependencies": {
     "ava": "*",
