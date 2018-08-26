@@ -1,19 +1,16 @@
 'use strict';
 const fs = require('fs');
 const pify = require('pify');
+const withOpenFile = require('with-open-file');
 
-const fsP = pify(fs);
 const fsReadP = pify(fs.read, {multiArgs: true});
 
 module.exports = (filepath, pos, len) => {
 	const buf = Buffer.alloc(len);
 
-	return fsP.open(filepath, 'r')
-		.then(fd =>
-			fsReadP(fd, buf, 0, len, pos)
-				.then(readArgs => fsP.close(fd)
-					.then(() => readArgs))
-		)
+	return withOpenFile(filepath, 'r', fd =>
+		fsReadP(fd, buf, 0, len, pos)
+	)
 		.then(([bytesRead, buf]) => {
 			if (bytesRead < len) {
 				buf = buf.slice(0, bytesRead);
@@ -26,10 +23,9 @@ module.exports = (filepath, pos, len) => {
 module.exports.sync = (filepath, pos, len) => {
 	let buf = Buffer.alloc(len);
 
-	const fd = fs.openSync(filepath, 'r');
-	const bytesRead = fs.readSync(fd, buf, 0, len, pos);
-
-	fs.closeSync(fd);
+	const bytesRead = withOpenFile.sync(filepath, 'r', fd =>
+		fs.readSync(fd, buf, 0, len, pos)
+	);
 
 	if (bytesRead < len) {
 		buf = buf.slice(0, bytesRead);
