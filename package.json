@@ -1,44 +1,44 @@
 {
-  "name": "read-chunk",
-  "version": "2.1.0",
-  "description": "Read a chunk from a file",
-  "license": "MIT",
-  "repository": "sindresorhus/read-chunk",
-  "author": {
-    "name": "Sindre Sorhus",
-    "email": "sindresorhus@gmail.com",
-    "url": "sindresorhus.com"
-  },
-  "engines": {
-    "node": ">=6"
-  },
-  "scripts": {
-    "test": "xo && ava"
-  },
-  "files": [
-    "index.js"
-  ],
-  "keywords": [
-    "read",
-    "file",
-    "readfile",
-    "fs",
-    "chunk",
-    "slice",
-    "part",
-    "head",
-    "tail",
-    "buffer",
-    "fd",
-    "open"
-  ],
-  "dependencies": {
-    "pify": "^3.0.0",
-    "with-open-file": "^0.1.3"
-  },
-  "devDependencies": {
-    "ava": "*",
-    "sinon": "^6.1.5",
-    "xo": "*"
-  }
+	"name": "read-chunk",
+	"version": "2.1.0",
+	"description": "Read a chunk from a file",
+	"license": "MIT",
+	"repository": "sindresorhus/read-chunk",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "sindresorhus.com"
+	},
+	"engines": {
+		"node": ">=6"
+	},
+	"scripts": {
+		"test": "xo && ava"
+	},
+	"files": [
+		"index.js"
+	],
+	"keywords": [
+		"read",
+		"file",
+		"readfile",
+		"fs",
+		"chunk",
+		"slice",
+		"part",
+		"head",
+		"tail",
+		"buffer",
+		"fd",
+		"open"
+	],
+	"dependencies": {
+		"pify": "^4.0.0",
+		"with-open-file": "^0.1.3"
+	},
+	"devDependencies": {
+		"ava": "*",
+		"sinon": "^6.1.5",
+		"xo": "*"
+	}
 }

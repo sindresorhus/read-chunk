@@ -5,31 +5,31 @@ const withOpenFile = require('with-open-file');
 
 const fsReadP = pify(fs.read, {multiArgs: true});
 
-module.exports = (filepath, pos, len) => {
-	const buf = Buffer.alloc(len);
+module.exports = (filePath, position, length) => {
+	const buffer = Buffer.alloc(length);
 
-	return withOpenFile(filepath, 'r', fd =>
-		fsReadP(fd, buf, 0, len, pos)
+	return withOpenFile(filePath, 'r', fileDescriptor =>
+		fsReadP(fileDescriptor, buffer, 0, length, position)
 	)
-		.then(([bytesRead, buf]) => {
-			if (bytesRead < len) {
-				buf = buf.slice(0, bytesRead);
+		.then(([bytesRead, buffer]) => {
+			if (bytesRead < length) {
+				buffer = buffer.slice(0, bytesRead);
 			}
 
-			return buf;
+			return buffer;
 		});
 };
 
-module.exports.sync = (filepath, pos, len) => {
-	let buf = Buffer.alloc(len);
+module.exports.sync = (filePath, position, length) => {
+	let buffer = Buffer.alloc(length);
 
-	const bytesRead = withOpenFile.sync(filepath, 'r', fd =>
-		fs.readSync(fd, buf, 0, len, pos)
+	const bytesRead = withOpenFile.sync(filePath, 'r', fileDescriptor =>
+		fs.readSync(fileDescriptor, buffer, 0, length, position)
 	);
 
-	if (bytesRead < len) {
-		buf = buf.slice(0, bytesRead);
+	if (bytesRead < length) {
+		buffer = buffer.slice(0, bytesRead);
 	}
 
-	return buf;
+	return buffer;
 };

@@ -1,12 +1,12 @@
 import fs from 'fs';
-import test from 'ava';
+import {serial as test} from 'ava';
 import sinon from 'sinon';
 
 const INVALID_FD = -1;
 const TEST_PATH = 'garbage';
 
 test.before(() => {
-	// We need to spy before requiring to get our spies into the promisified fs
+	// We need to spy before requiring to get our spies into the promisified `fs`
 	sinon.stub(fs, 'open').callThrough();
 	sinon.spy(fs, 'close');
 
