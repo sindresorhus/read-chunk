@@ -26,19 +26,19 @@ readChunk.sync('foo.txt', 1, 3);
 
 ## API
 
-### readChunk(filepath, position, length)
+### readChunk(filePath, startPosition, length)
 
-Returns a `Promise<Buffer>`.
+Returns a `Promise<Buffer>` with the read chunk.
 
-### readChunk.sync(filepath, position, length)
+### readChunk.sync(filePath, startPosition, length)
 
-Returns a `Buffer`.
+Returns a `Buffer` with the read chunk.
 
-#### filepath
+#### filePath
 
 Type: `string`
 
-#### position
+#### startPosition
 
 Type: `number`
 
