@@ -5,7 +5,7 @@ const withOpenFile = require('with-open-file');
 
 const fsReadP = pify(fs.read, {multiArgs: true});
 
-module.exports = (filePath, position, length) => {
+const readChunk = (filePath, position, length) => {
 	const buffer = Buffer.alloc(length);
 
 	return withOpenFile(filePath, 'r', fileDescriptor =>
@@ -19,6 +19,9 @@ module.exports = (filePath, position, length) => {
 			return buffer;
 		});
 };
+
+module.exports = readChunk;
+module.exports.default = readChunk;
 
 module.exports.sync = (filePath, position, length) => {
 	let buffer = Buffer.alloc(length);

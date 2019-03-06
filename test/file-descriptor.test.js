@@ -19,7 +19,7 @@ test('closes the file descriptor when reading fails', async t => {
 	const fsOpenStub = fs.open.withArgs(TEST_PATH, 'r', sinon.match.func)
 		.yields(undefined, INVALID_FD);
 
-	await t.throws(m(TEST_PATH, 0, 4), Error,
+	await t.throwsAsync(m(TEST_PATH, 0, 4), Error,
 		'fs.read should throw, given an invalid file descriptor');
 	t.true(fsOpenStub.calledOnce);
 	t.true(fs.close.withArgs(INVALID_FD).calledOnce);
