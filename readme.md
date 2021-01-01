@@ -1,4 +1,4 @@
-# read-chunk [![Build Status](https://travis-ci.org/sindresorhus/read-chunk.svg?branch=master)](https://travis-ci.org/sindresorhus/read-chunk)
+# read-chunk
 
 > Read a chunk from a file
 
