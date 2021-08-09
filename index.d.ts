@@ -1,38 +1,51 @@
-/// <reference types="node"/>
+import Buffer from 'node:buffer';
 
-declare const readChunk: {
+export interface Options {
 	/**
-	Read a chunk from a file asyncronously.
-
-	@param filePath - The path to the file.
-	@param startPosition - Position to start reading.
-	@param length - Number of bytes to read.
-	@returns The read chunk.
-
-	@example
-	```
-	import readChunk = require('read-chunk');
-
-	// foo.txt => hello
-
-	readChunk.sync('foo.txt', 1, 3);
-	//=> 'ell'
-	```
+	The number of bytes to read.
 	*/
-	(filePath: string, startPosition: number, length: number): Promise<Buffer>;
+	readonly length: number;
 
 	/**
-	Read a chunk from a file synchronously.
+	The position to start reading from.
 
-	@param filePath - The path to the file.
-	@param startPosition - Position to start reading.
-	@param length - Number of bytes to read.
-	@returns The read chunk.
+	@default 0
 	*/
-	sync(filePath: string, startPosition: number, length: number): Buffer;
+	readonly startPosition?: number | bigint;
+}
 
-	// TODO: Remove this for the next major release
-	default: typeof readChunk;
-};
+/**
+Read a chunk from a file asyncronously.
 
-export = readChunk;
+@param filePath - The path to the file.
+@returns The read chunk.
+
+@example
+```
+import {readChunk} from 'read-chunk';
+
+// foo.txt => hello
+
+await readChunk('foo.txt', {length: 3, startPosition: 1});
+//=> 'ell'
+```
+*/
+export function readChunk(filePath: string, options: Options): Promise<Buffer>;
+
+/**
+Read a chunk from a file synchronously.
+
+@param filePath - The path to the file.
+@returns The read chunk.
+
+@example
+```
+import {readChunkSync} from 'read-chunk';
+
+// foo.txt => hello
+
+readChunkSync('foo.txt', {length: 3, startPosition: 1});
+//=> 'ell'
+```
+*/
+export function readChunkSync(filePath: string, options: Options): Buffer;

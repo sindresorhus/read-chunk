@@ -4,33 +4,30 @@
 
 Because the built-in way requires way too much boilerplate.
 
-
 ## Install
 
 ```
 $ npm install read-chunk
 ```
 
-
 ## Usage
 
 ```js
-const readChunk = require('read-chunk');
+import {readChunk} from 'read-chunk';
 
 // foo.txt => hello
 
-readChunk.sync('foo.txt', 1, 3);
+await readChunk('foo.txt', {length: 3, startPosition: 1});
 //=> 'ell'
 ```
 
-
 ## API
 
-### readChunk(filePath, startPosition, length)
+### readChunk(filePath, {length, startPosition})
 
 Returns a `Promise<Buffer>` with the read chunk.
 
-### readChunk.sync(filePath, startPosition, length)
+### readChunk.sync(filePath, {length, startPosition})
 
 Returns a `Buffer` with the read chunk.
 
@@ -38,19 +35,14 @@ Returns a `Buffer` with the read chunk.
 
 Type: `string`
 
-#### startPosition
-
-Type: `number`
-
-Position to start reading.
-
 #### length
 
 Type: `number`
 
-Number of bytes to read.
+The number of bytes to read.
 
+#### startPosition
 
-## License
+Type: `number`
 
-MIT © [Sindre Sorhus](https://sindresorhus.com)
+The poosition to start reading from.

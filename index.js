@@ -1,39 +1,48 @@
-'use strict';
-const fs = require('fs');
-const pify = require('pify');
-const withOpenFile = require('with-open-file');
+import {promisify} from 'node:util';
+import fs from 'node:fs';
+import {Buffer} from 'node:buffer';
+import pify from 'pify';
 
 const fsReadP = pify(fs.read, {multiArgs: true});
+const fsOpenP = promisify(fs.open);
+const fsCloseP = promisify(fs.close);
 
-const readChunk = (filePath, startPosition, length) => {
-	const buffer = Buffer.alloc(length);
+export async function readChunk(filePath, {length, startPosition}) {
+	const fileDescriptor = await fsOpenP(filePath, 'r');
 
-	return withOpenFile(filePath, 'r', fileDescriptor =>
-		fsReadP(fileDescriptor, buffer, 0, length, startPosition)
-	)
-		.then(([bytesRead, buffer]) => {
-			if (bytesRead < length) {
-				buffer = buffer.slice(0, bytesRead);
-			}
-
-			return buffer;
+	try {
+		let [bytesRead, buffer] = await fsReadP(fileDescriptor, {
+			buffer: Buffer.alloc(length),
+			length,
+			position: startPosition,
 		});
-};
 
-module.exports = readChunk;
-// TODO: Remove this for the next major release
-module.exports.default = readChunk;
+		if (bytesRead < length) {
+			buffer = buffer.slice(0, bytesRead);
+		}
 
-module.exports.sync = (filePath, startPosition, length) => {
-	let buffer = Buffer.alloc(length);
-
-	const bytesRead = withOpenFile.sync(filePath, 'r', fileDescriptor =>
-		fs.readSync(fileDescriptor, buffer, 0, length, startPosition)
-	);
-
-	if (bytesRead < length) {
-		buffer = buffer.slice(0, bytesRead);
+		return buffer;
+	} finally {
+		await fsCloseP(fileDescriptor);
 	}
+}
 
-	return buffer;
-};
+export function readChunkSync(filePath, {length, startPosition}) {
+	let buffer = Buffer.alloc(length);
+	const fileDescriptor = fs.openSync(filePath, 'r');
+
+	try {
+		const bytesRead = fs.readSync(fileDescriptor, buffer, {
+			length,
+			position: startPosition,
+		});
+
+		if (bytesRead < length) {
+			buffer = buffer.slice(0, bytesRead);
+		}
+
+		return buffer;
+	} finally {
+		fs.closeSync(fileDescriptor);
+	}
+}
