@@ -27,7 +27,7 @@ await readChunk('foo.txt', {length: 3, startPosition: 1});
 
 Returns a `Promise<Buffer>` with the read chunk.
 
-### readChunk.sync(filePath, {length, startPosition})
+### readChunkSync(filePath, {length, startPosition})
 
 Returns a `Buffer` with the read chunk.
 
