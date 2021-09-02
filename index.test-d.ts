@@ -1,4 +1,4 @@
-import Buffer from 'node:buffer';
+import {Buffer} from 'node:buffer';
 import {expectType} from 'tsd';
 import {readChunk, readChunkSync} from './index.js';
 
