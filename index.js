@@ -18,7 +18,7 @@ export async function readChunk(filePath, {length, startPosition}) {
 		});
 
 		if (bytesRead < length) {
-			buffer = buffer.slice(0, bytesRead);
+			buffer = buffer.subarray(0, bytesRead);
 		}
 
 		return buffer;
@@ -38,7 +38,7 @@ export function readChunkSync(filePath, {length, startPosition}) {
 		});
 
 		if (bytesRead < length) {
-			buffer = buffer.slice(0, bytesRead);
+			buffer = buffer.subarray(0, bytesRead);
 		}
 
 		return buffer;
