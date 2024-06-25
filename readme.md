@@ -25,11 +25,11 @@ await readChunk('foo.txt', {length: 3, startPosition: 1});
 
 ### readChunk(filePath, {length, startPosition})
 
-Returns a `Promise<Buffer>` with the read chunk.
+Returns a `Promise<Uint8Array>` with the read chunk.
 
 ### readChunkSync(filePath, {length, startPosition})
 
-Returns a `Buffer` with the read chunk.
+Returns a `Uint8Array` with the read chunk.
 
 #### filePath
 

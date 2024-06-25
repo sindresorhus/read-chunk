@@ -1,5 +1,3 @@
-import {Buffer} from 'node:buffer';
-
 export interface Options {
 	/**
 	The number of bytes to read.
@@ -30,7 +28,7 @@ await readChunk('foo.txt', {length: 3, startPosition: 1});
 //=> 'ell'
 ```
 */
-export function readChunk(filePath: string, options: Options): Promise<Buffer>;
+export function readChunk(filePath: string, options: Options): Promise<Uint8Array>;
 
 /**
 Read a chunk from a file synchronously.
@@ -48,4 +46,4 @@ readChunkSync('foo.txt', {length: 3, startPosition: 1});
 //=> 'ell'
 ```
 */
-export function readChunkSync(filePath: string, options: Options): Buffer;
+export function readChunkSync(filePath: string, options: Options): Uint8Array;
