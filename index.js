@@ -1,6 +1,5 @@
 import {promisify} from 'node:util';
 import fs from 'node:fs';
-import {Buffer} from 'node:buffer';
 import pify from 'pify';
 
 const fsReadP = pify(fs.read, {multiArgs: true});
@@ -12,7 +11,7 @@ export async function readChunk(filePath, {length, startPosition}) {
 
 	try {
 		let [bytesRead, buffer] = await fsReadP(fileDescriptor, {
-			buffer: Buffer.alloc(length),
+			buffer: new Uint8Array(length),
 			length,
 			position: startPosition,
 		});
@@ -28,7 +27,7 @@ export async function readChunk(filePath, {length, startPosition}) {
 }
 
 export function readChunkSync(filePath, {length, startPosition}) {
-	let buffer = Buffer.alloc(length);
+	let buffer = new Uint8Array(length);
 	const fileDescriptor = fs.openSync(filePath, 'r');
 
 	try {
