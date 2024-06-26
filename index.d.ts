@@ -1,4 +1,4 @@
-export interface Options {
+export type Options = {
 	/**
 	The number of bytes to read.
 	*/
@@ -10,7 +10,7 @@ export interface Options {
 	@default 0
 	*/
 	readonly startPosition?: number | bigint;
-}
+};
 
 /**
 Read a chunk from a file asyncronously.
