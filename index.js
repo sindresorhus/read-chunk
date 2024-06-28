@@ -1,16 +1,11 @@
-import {promisify} from 'node:util';
-import fs from 'node:fs';
-import pify from 'pify';
-
-const fsReadP = pify(fs.read, {multiArgs: true});
-const fsOpenP = promisify(fs.open);
-const fsCloseP = promisify(fs.close);
+import {closeSync, openSync, readSync} from 'node:fs';
+import {open} from 'node:fs/promises';
 
 export async function readChunk(filePath, {length, startPosition}) {
-	const fileDescriptor = await fsOpenP(filePath, 'r');
+	const fileDescriptor = await open(filePath, 'r');
 
 	try {
-		let [bytesRead, buffer] = await fsReadP(fileDescriptor, {
+		let {bytesRead, buffer} = await fileDescriptor.read({
 			buffer: new Uint8Array(length),
 			length,
 			position: startPosition,
@@ -22,16 +17,16 @@ export async function readChunk(filePath, {length, startPosition}) {
 
 		return buffer;
 	} finally {
-		await fsCloseP(fileDescriptor);
+		await fileDescriptor?.close();
 	}
 }
 
 export function readChunkSync(filePath, {length, startPosition}) {
 	let buffer = new Uint8Array(length);
-	const fileDescriptor = fs.openSync(filePath, 'r');
+	const fileDescriptor = openSync(filePath, 'r');
 
 	try {
-		const bytesRead = fs.readSync(fileDescriptor, buffer, {
+		const bytesRead = readSync(fileDescriptor, buffer, {
 			length,
 			position: startPosition,
 		});
@@ -42,6 +37,6 @@ export function readChunkSync(filePath, {length, startPosition}) {
 
 		return buffer;
 	} finally {
-		fs.closeSync(fileDescriptor);
+		closeSync(fileDescriptor);
 	}
 }

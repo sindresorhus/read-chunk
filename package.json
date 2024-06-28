@@ -13,7 +13,7 @@
 	"type": "module",
 	"exports": "./index.js",
 	"engines": {
-		"node": "^12.20.0 || ^14.13.1 || >=16.0.0"
+		"node": ">=16.0.0"
 	},
 	"scripts": {
 		"test": "xo && ava && tsd"
@@ -36,9 +36,6 @@
 		"fd",
 		"open"
 	],
-	"dependencies": {
-		"pify": "^5.0.0"
-	},
 	"devDependencies": {
 		"@types/node": "^16.4.13",
 		"ava": "^6.1.3",
