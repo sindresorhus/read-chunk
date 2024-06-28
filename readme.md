@@ -6,8 +6,8 @@ Because the built-in way requires way too much boilerplate.
 
 ## Install
 
-```
-$ npm install read-chunk
+```sh
+npm install read-chunk
 ```
 
 ## Usage
@@ -45,4 +45,4 @@ The number of bytes to read.
 
 Type: `number`
 
-The poosition to start reading from.
+The position to start reading from.
